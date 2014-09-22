@@ -39,7 +39,7 @@ def collections():
 	collections = models.Collection.query.all()
 	if not collections:
 		abort(404)
-	response = { 'collections': [{'id': c.id, 'title': c.title, 'thumbnail': c.get_thumbnail()} for c in collections] }
+	response = { 'collections': [{'id': c.id, 'title': c.title, 'description': c.description, 'thumbnail': c.get_thumbnail()} for c in collections] }
 	return jsonify(response)
 
 @app.route('/api/v1.0/collection', methods=['POST'])
