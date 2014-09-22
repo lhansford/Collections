@@ -36,7 +36,7 @@ class Collection(db.Model):
 			return self.thumbnail
 		else:
 			for i in items:
-				a = Article.query.get(i,article_id)
+				a = Article.query.get(i.article_id)
 				if a.lead_image:
 					return a.lead_image
 		return "http://ruon.tv/wp-content/uploads/2014/02/default-image.png"
