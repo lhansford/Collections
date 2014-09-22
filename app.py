@@ -97,8 +97,8 @@ def add_to_collection(collection_id):
 	if not collection or not article:
 		abort(400)
 	item = models.CollectionItem(
-		collection_id = collection.id,
-		article_id = article.id,
+		collection_id = collection,
+		article_id = article,
 		order = len(collection.items()) + 1
 	)
 	db.session.add(item)
