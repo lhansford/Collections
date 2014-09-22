@@ -31,14 +31,14 @@ class Collection(db.Model):
 	thumbnail = db.Column(db.Text())
 	items = db.relationship('CollectionItem', backref='collection', lazy='dynamic')
 
-	def get_thumbnail():
-		# if self.thumbnail:
-		# 	return self.thumbnail
-		# else:
-		# 	for i in items:
-		# 		a = Article.query.get(i.article_id)
-		# 		if a.lead_image:
-		# 			return a.lead_image
+	def get_thumbnail(self):
+		if self.thumbnail:
+			return self.thumbnail
+		else:
+			for i in items:
+				a = Article.query.get(i.article_id)
+				if a.lead_image:
+					return a.lead_image
 		return "http://ruon.tv/wp-content/uploads/2014/02/default-image.png"
 
 	def items_dict(self):
