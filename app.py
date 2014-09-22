@@ -39,7 +39,7 @@ def collections():
 	collections = models.Collection.query.all()
 	if not collections:
 		abort(404)
-	response = { 'collections': [{'id': c.id, 'title': c.title, 'description': c.description, 'thumbnail': c.get_thumbnail()} for c in collections] }
+	response = { 'collections': [c.dictionary() for c in collections] }
 	return jsonify(response)
 
 @app.route('/api/v1.0/collection', methods=['POST'])
@@ -82,8 +82,7 @@ def collection(collection_id):
 	collection = models.Collection.query.get(collection_id)
 	if not collection:
 		abort(404)
-	response = {'id': collection.id, 'title': collection.title, 'items': collection.items_dict()}
-	return jsonify(response)
+	return jsonify(collection.dictionary())
 
 @app.route('/api/v1.0/collection/<int:collection_id>', methods=['POST'])
 def add_to_collection(collection_id):
@@ -116,7 +115,7 @@ def user_collections(user_id):
 	if not user:
 		abort(404)
 	response = { 'collections': 
-		[{'id': c.id, 'title': c.title, 'items': c.items_dict()} for c in user.collections]
+		[c.dictionary() for c in user.collections]
 	}
 	return jsonify(response)
 
@@ -130,17 +129,7 @@ def article(article_id):
 	article = models.Article.query.get(article_id)
 	if not article:
 		abort(404)
-	article_dict = {
-		'url': article.url,
-		'title': article.title,
-		'content': article.content,
-		'author': article.author,
-		'excerpt': article.excerpt,
-		'date': article.date,
-		'dek': article.dek,
-		'lead_image': article.lead_image,
-	}
-	return jsonify(article_dict)
+	return jsonify(article.dictionary())
 
 @app.route('/api/v1.0/article', methods=['POST'])
 def post_article():
@@ -173,7 +162,7 @@ def post_article():
 	)
 	db.session.add(article)
 	db.session.commit()
-	return jsonify({'article_id':article.id}), 201
+	return jsonify(article.dictionary()), 201
 
 
 @app.errorhandler(404)

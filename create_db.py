@@ -21,7 +21,7 @@ u = models.User(username="test", email="test@test.com", password='test')
 db.session.add(u)
 db.session.commit()
 
-c = models.Collection(user_id=u.id, title="A test collection")
+c = models.Collection(user_id=u.id, title="A test collection", description="A short description for testing.")
 db.session.add(c)
 db.session.commit()
 

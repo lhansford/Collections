@@ -21,6 +21,19 @@ class Article(db.Model):
 	dek = db.Column(db.Text())
 	lead_image = db.Column(db.Text())
 
+	def dictionary(self):
+		return {
+			'id': self.id,
+			'url': self.url,
+			'title': self.title,
+			'content': self.content,
+			'author': self.author,
+			'excerpt': self.excerpt,
+			'date': self.date,
+			'dek': self.dek,
+			'lead_image': self.lead_image,
+		}
+
 class Collection(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -41,6 +54,18 @@ class Collection(db.Model):
 				if a.lead_image:
 					return a.lead_image
 		return "http://ruon.tv/wp-content/uploads/2014/02/default-image.png" # TODO, get real placeholder image
+
+	def dictionary(self):
+		return {
+			'id': self.id,
+			'title': self.title,
+			'description': self.description,
+			'category': self.category,
+			'published': self.published,
+			'publish_date': self.publish_date,
+			'thumbnail': self.get_thumbnail(),
+			'items': self.items_dict,
+		}
 
 	def items_dict(self):
 		return [{'article_id': i.article_id, 'order': i.order} for i in self.items]
