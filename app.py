@@ -14,7 +14,7 @@ def index():
 	return "Wrong way, go back."
 
 @app.route('/api/v1.0/categories', methods=['GET'])
-def collections():
+def categories():
 	"""	URL - /api/v1.0/categories
 		Method - GET
 
