@@ -5,6 +5,7 @@ SQLAlchemy==0.9.7
 Tempita==0.5.2
 Werkzeug==0.9.6
 decorator==3.4.0
+gunicorn==19.1.1
 httplib2==0.8
 itsdangerous==0.24
 oauth2==1.5.211
