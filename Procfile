@@ -1,3 +1,3 @@
 web: gunicorn run:app
-init: python db_create.py
+init: python create_db.py
 upgrade: python db_migrate.py
