@@ -96,13 +96,13 @@ def add_to_collection(collection_id):
 	if not post_json or not collection or not 'article_id' in post_json:
 		abort(400)
 	item = models.CollectionItem(
-		collection_id = collection_id,
-		article_id = post_json['article_id'],
+		collection_id = int(collection_id),
+		article_id = int(post_json['article_id']),
 		order = len(collection.items()) + 1
 	)
 	db.session.add(item)
 	db.session.commit()
-	return jsonify({})
+	return jsonify({'message': 'Success'}), 201
 
 @app.route('/api/v1.0/user/<int:user_id>/collections', methods=['GET'])
 def user_collections(user_id):
