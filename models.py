@@ -25,6 +25,7 @@ class Collection(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	title = db.Column(db.String(128))
+	description = db.Column(db.Text())
 	category = db.Column(db.String(64))
 	published = db.Column(db.Boolean())
 	publish_date = db.Column(db.DateTime())
@@ -39,7 +40,7 @@ class Collection(db.Model):
 				a = Article.query.get(i.article_id)
 				if a.lead_image:
 					return a.lead_image
-		return "http://ruon.tv/wp-content/uploads/2014/02/default-image.png"
+		return "http://ruon.tv/wp-content/uploads/2014/02/default-image.png" # TODO, get real placeholder image
 
 	def items_dict(self):
 		return [{'article_id': i.article_id, 'order': i.order} for i in self.items]
