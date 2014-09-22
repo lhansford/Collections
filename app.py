@@ -146,7 +146,7 @@ def post_article():
 	# Check if the article is already in database
 	query = models.Article.query.filter_by(url=url).first()
 	if query:
-		return jsonify({'article_id':query.id}), 201
+		return jsonify(query.dictionary()), 201
 
 	# If not in DB, get article from web
 	parsedArticle = ParsedArticle(url)
