@@ -93,11 +93,12 @@ def add_to_collection(collection_id):
 	"""
 	post_json = request.get_json()
 	collection = models.Collection.query.get(collection_id)
-	if not post_json or not collection or not 'article_id' in post_json:
+	article = models.Article.query.get(post_json['article_id'])
+	if not collection or not article:
 		abort(400)
 	item = models.CollectionItem(
-		collection_id = int(collection_id),
-		article_id = int(post_json['article_id']),
+		collection_id = collection.id,
+		article_id = article.id,
 		order = len(collection.items()) + 1
 	)
 	db.session.add(item)
