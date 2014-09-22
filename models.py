@@ -23,7 +23,7 @@ class Article(db.Model):
 
 	def dictionary(self):
 		return {
-			'id': self.id,
+			'id': str(self.id),
 			'url': self.url,
 			'title': self.title,
 			'content': self.content,
@@ -57,7 +57,7 @@ class Collection(db.Model):
 
 	def dictionary(self):
 		return {
-			'id': self.id,
+			'id': str(self.id),
 			'title': self.title,
 			'description': self.description,
 			'category': self.category,
