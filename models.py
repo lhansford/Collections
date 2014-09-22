@@ -64,7 +64,7 @@ class Collection(db.Model):
 			'published': self.published,
 			'publish_date': self.publish_date,
 			'thumbnail': self.get_thumbnail(),
-			'items': self.items_dict,
+			'items': self.items_dict(),
 		}
 
 	def items_dict(self):
