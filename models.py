@@ -68,7 +68,7 @@ class Collection(db.Model):
 		}
 
 	def items_dict(self):
-		return [{'article_id': i.article_id, 'order': i.order} for i in self.items]
+		return [{'article_id': str(i.article_id), 'order': str(i.order)} for i in self.items]
 
 class CollectionItem(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
