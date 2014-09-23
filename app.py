@@ -63,6 +63,7 @@ def post_collection():
 	collection = models.Collection(
 		user_id = user_id,
 		title = title,
+		description = description,
 		category = category,
 		published = False,
 		publish_date = None,
