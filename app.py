@@ -29,6 +29,32 @@ def categories():
 	response = { 'response': categories }
 	return jsonify(response)
 
+@app.route('/api/v1.0/user', methods=['POST'])
+def find_user():
+	"""	URL - /api/v1.0/user
+		Method - POST
+
+		Receives a post containing a user email, authenticated by Google, and 
+		returns the user if associated with that email. Creates a new user if 
+		that user doesn't already exist.
+	"""
+	post_json = request.get_json()
+	if not post_json:
+		abort(400)
+	email = post_json['email']
+	if not email:
+		abort(400)
+	user = models.User.query.filter_by(email=email).first()
+	if not user:
+		user = models.User(
+			username = email,
+			email = email,
+			password = ""
+		)
+		db.session.add(user)
+		db.session.commit()
+	return jsonify({'user_id':user.id}), 201
+
 @app.route('/api/v1.0/collections', methods=['GET'])
 def collections():
 	"""	URL - /api/v1.0/collections
