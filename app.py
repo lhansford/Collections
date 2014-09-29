@@ -6,6 +6,13 @@ app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
+#Logging for heroku
+import logging
+stream_handler = logging.StreamHandler()
+app.logger.addHandler(stream_handler)
+app.logger.setLevel(logging.INFO)
+app.logger.info('microblog startup')
+
 from read import ParsedArticle
 import models
 
