@@ -42,12 +42,14 @@ def find_user():
 	if not post_json:
 		abort(400)
 	email = post_json['email']
+	username = email.split("@")[0]
+	print username
 	if not email:
 		abort(400)
 	user = models.User.query.filter_by(email=email).first()
 	if not user:
 		user = models.User(
-			username = email.split('@')[0],
+			username = username,
 			email = email,
 			password = ""
 		)
