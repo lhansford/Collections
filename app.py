@@ -50,14 +50,14 @@ def find_user():
 		abort(400)
 	email = post_json['email']
 	username = email.split("@")[0]
-	same_username = models.User.query.filter_by(username=username)
+	same_username = models.User.query.filter_by(username=username).all()
 	if len(same_username) > 0:
 		username += len(same_username)
 	print username
 	if not email:
 		abort(400)
 
-	user = models.User.query.filter_by(email=email)
+	user = models.User.query.filter_by(email=email).all()
 	if len(user) == 0:
 		user = models.User(
 			username = username,
