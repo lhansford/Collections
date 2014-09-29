@@ -47,7 +47,7 @@ def find_user():
 	user = models.User.query.filter_by(email=email).first()
 	if not user:
 		user = models.User(
-			username = email,
+			username = email.split('@')[0],
 			email = email,
 			password = ""
 		)
