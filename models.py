@@ -65,10 +65,14 @@ class Collection(db.Model):
 			'publish_date': self.publish_date,
 			'thumbnail': self.get_thumbnail(),
 			'items': self.items_dict(),
+			'creator': self.get_user()
 		}
 
 	def items_dict(self):
 		return [{'article_id': str(i.article_id), 'order': str(i.order)} for i in self.items]
+
+	def get_user(self):
+		return User.query.get(self.user_id).username
 
 class CollectionItem(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
