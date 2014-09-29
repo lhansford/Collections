@@ -52,7 +52,7 @@ def find_user():
 	user = models.User.query.filter_by(email=email).first()
 	if not user:
 		user = models.User(
-			username = username,
+			username = email,
 			email = email,
 			password = ""
 		)
