@@ -49,16 +49,16 @@ def find_user():
 	if not post_json:
 		abort(400)
 	email = post_json['email']
+	if not email:
+		abort(400)
+
 	username = email.split("@")[0]
 	same_username = models.User.query.filter_by(username=username).all()
 	if len(same_username) > 0:
 		username += len(same_username)
-	print username
-	if not email:
-		abort(400)
 
-	user = models.User.query.filter_by(email=email).all()
-	if len(user) == 0:
+	user = models.User.query.filter_by(email=email).first()
+	if not user:
 		user = models.User(
 			username = username,
 			email = email,
@@ -66,8 +66,6 @@ def find_user():
 		)
 		db.session.add(user)
 		db.session.commit()
-	else:
-		user = user[0]
 	return jsonify({'user_id':user.id}), 201
 
 @app.route('/api/v1.0/collections', methods=['GET'])
