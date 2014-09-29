@@ -52,13 +52,13 @@ def find_user():
 	if not email:
 		abort(400)
 
-	username = email.split("@")[0]
-	same_username = models.User.query.filter_by(username=username).all()
-	if len(same_username) > 0:
-		username += len(same_username)
-
 	user = models.User.query.filter_by(email=email).first()
+
 	if not user:
+		username = email.split("@")[0]
+		same_username = models.User.query.filter_by(username=username).all()
+		if len(same_username) > 0:
+			username = username + str(len(same_username))
 		user = models.User(
 			username = username,
 			email = email,
