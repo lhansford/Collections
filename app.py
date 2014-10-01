@@ -133,14 +133,27 @@ def add_to_collection(collection_id):
 	"""
 	post_json = request.get_json()
 	collection = models.Collection.query.get(collection_id)
-	article = models.Article.query.get(post_json['article_id'])
-	if not collection or not article:
+	if not collection:
 		abort(400)
-	item = models.CollectionItem(
-		collection_id = collection.id,
-		article_id = article.id,
-		order = len(collection.items_dict()) + 1
-	)
+
+	if post_json['content_type'] == "html":
+		article = models.Article.query.get(post_json['article_id'])
+		if not article:
+			abort(400)
+		item = models.CollectionArticle(
+			collection_id = collection.id,
+			article_id = article.id,
+			order = 0
+		)
+	elif post_json['content_type'] == "image":
+		image = models.Image.query.get(post_json['image_id'])
+		if not image:
+			abort(400)
+		item = models.CollectionImage(
+			collection_id = collection.id,
+			image_id = article.id,
+			order = 0
+		)
 	db.session.add(item)
 	db.session.commit()
 	return jsonify({'message': 'Success'}), 201

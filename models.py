@@ -57,13 +57,14 @@ class Collection(db.Model):
 	published = db.Column(db.Boolean())
 	publish_date = db.Column(db.DateTime())
 	thumbnail = db.Column(db.Text())
-	items = db.relationship('CollectionItem', backref='collection', lazy='dynamic')
+	articles = db.relationship('CollectionArticle', backref='collection', lazy='dynamic')
+	images = db.relationship('CollectionImage', backref='collection', lazy='dynamic')
 
 	def get_thumbnail(self):
 		if self.thumbnail and self.thumbnail != "":
 			return self.thumbnail
 		else:
-			for i in self.items:
+			for i in self.articles:
 				a = Article.query.get(i.article_id)
 				if a.lead_image:
 					return a.lead_image
@@ -83,13 +84,19 @@ class Collection(db.Model):
 		}
 
 	def items_dict(self):
-		return [{'article_id': str(i.article_id), 'order': str(i.order)} for i in self.items]
+		return [{'article_id': str(i.article_id), 'order': str(i.order)} for i in self.articles]
 
 	def get_user(self):
 		return User.query.get(self.user_id).username
 
-class CollectionItem(db.Model):
+class CollectionArticle(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	collection_id = db.Column(db.Integer, db.ForeignKey('collection.id'))
 	article_id = db.Column(db.Integer, db.ForeignKey('article.id'))
+	order = db.Column(db.Integer)
+
+class CollectionImage(db.Model):
+	id = db.Column(db.Integer, primary_key = True)
+	collection_id = db.Column(db.Integer, db.ForeignKey('collection.id'))
+	image_id = db.Column(db.Integer, db.ForeignKey('image.id'))
 	order = db.Column(db.Integer)
