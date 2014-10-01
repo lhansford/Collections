@@ -84,7 +84,18 @@ class Collection(db.Model):
 		}
 
 	def items_dict(self):
+		items = [None for i in xrange(self.get_num_items())]
+		for article in self.articles:
+			d = { 'id': str(article.article_id), 'type': 'article' }
+			items[article.order] = d
+		for image in self.images:
+			d = { 'id': str(image.image_id), 'type': 'image' }
+			items[image.order] = d
+
 		return [{'article_id': str(i.article_id), 'order': str(i.order)} for i in self.articles]
+
+	def get_num_items(self):
+		return len(self.articles) + len(self.images)
 
 	def get_user(self):
 		return User.query.get(self.user_id).username

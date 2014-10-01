@@ -143,7 +143,7 @@ def add_to_collection(collection_id):
 		item = models.CollectionArticle(
 			collection_id = collection.id,
 			article_id = article.id,
-			order = 0
+			order = collection.get_num_items()
 		)
 	elif post_json['content_type'] == "image":
 		image = models.Image.query.get(post_json['image_id'])
@@ -152,7 +152,7 @@ def add_to_collection(collection_id):
 		item = models.CollectionImage(
 			collection_id = collection.id,
 			image_id = image.id,
-			order = 0
+			order = collection.get_num_items()
 		)
 	db.session.add(item)
 	db.session.commit()
