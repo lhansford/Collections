@@ -218,12 +218,12 @@ def post_image():
 
 	image = post_json['image']
 	title = post_json.get("title", "")
-	description = post_json.get("description", "")
+	caption = post_json.get("description", "")
 
 	image = models.Image(
 		image = image,
 		title = title,
-		description = description
+		caption = caption
 	)
 	db.session.add(image)
 	db.session.commit()
