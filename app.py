@@ -218,6 +218,18 @@ def post_article():
 	db.session.commit()
 	return jsonify(article.dictionary()), 201
 
+@app.route('/api/v1.0/image/<int:image_id>', methods=['GET'])
+def image(image_id):
+	"""	URL - /api/v1.0/image/[id]
+		Method - GET
+
+		Returns the image the given ID represents.
+	"""
+	image = models.Image.query.get(image_id)
+	if not image:
+		abort(404)
+	return jsonify(image.dictionary())
+
 @app.route('/api/v1.0/image', methods=['POST'])
 def post_image():
 	"""	URL - /api/v1.0/image
