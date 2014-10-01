@@ -34,6 +34,20 @@ class Article(db.Model):
 			'lead_image': self.lead_image,
 		}
 
+class Image(db.Model):
+	id = db.Column(db.Integer, primary_key = True)
+	title = db.Column(db.Text())
+	caption = db.Column(db.Text())
+	image = db.Column(db.LargeBinary())
+
+	def dictionary(self):
+		return {
+			'id': str(self.id),
+			'image': self.image,
+			'title': self.title,
+			'description': self.description,
+		}
+
 class Collection(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

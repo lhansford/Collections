@@ -177,7 +177,7 @@ def post_article():
 	"""	URL - /api/v1.0/article
 		Method - POST
 
-		Creates a new article from a URL and returns a ID that represents it.
+		Creates a new article from a URL and returns a dictionary that represents it.
 	"""
 	post_json = request.get_json()
 	if not post_json or not 'url' in post_json:
@@ -205,6 +205,29 @@ def post_article():
 	db.session.commit()
 	return jsonify(article.dictionary()), 201
 
+@app.route('/api/v1.0/article', methods=['POST'])
+def post_image():
+	"""	URL - /api/v1.0/image
+		Method - POST
+
+		Creates a new image from a URL and returns a ID that represents it.
+	"""
+	post_json = request.get_json()
+	if not post_json or not 'image' in post_json:
+		abort(400)
+
+	image = post_json['image']
+	title = post_json.get("title", "")
+	description = post_json.get("description", "")
+
+	image = models.Image(
+		image = image,
+		title = title,
+		content = description
+	)
+	db.session.add(image)
+	db.session.commit()
+	return jsonify({'id': image.id}), 201
 
 @app.errorhandler(404)
 def not_found(error):
