@@ -205,7 +205,7 @@ def post_article():
 	db.session.commit()
 	return jsonify(article.dictionary()), 201
 
-@app.route('/api/v1.0/article', methods=['POST'])
+@app.route('/api/v1.0/image', methods=['POST'])
 def post_image():
 	"""	URL - /api/v1.0/image
 		Method - POST
