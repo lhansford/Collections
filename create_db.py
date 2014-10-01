@@ -66,9 +66,9 @@ db.session.add(a2)
 db.session.add(a3)
 db.session.commit()
 
-ci1 = models.CollectionItem(collection_id=c.id, article_id=a1.id, order=1)
-ci2 = models.CollectionItem(collection_id=c.id, article_id=a2.id, order=2)
-ci3 = models.CollectionItem(collection_id=c.id, article_id=a3.id, order=3)
+ci1 = models.CollectionArticle(collection_id=c.id, article_id=a1.id, order=1)
+ci2 = models.CollectionArticle(collection_id=c.id, article_id=a2.id, order=2)
+ci3 = models.CollectionArticle(collection_id=c.id, article_id=a3.id, order=3)
 
 db.session.add(ci1)
 db.session.add(ci2)
