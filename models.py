@@ -92,7 +92,7 @@ class Collection(db.Model):
 			d = { 'id': str(image.image_id), 'type': 'image' }
 			items[image.order] = d
 
-		return [{'article_id': str(i.article_id), 'order': str(i.order)} for i in self.articles]
+		return items
 
 	def get_num_items(self):
 		a = [x for x in self.articles]
