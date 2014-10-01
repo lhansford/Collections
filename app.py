@@ -151,7 +151,7 @@ def add_to_collection(collection_id):
 			abort(400)
 		item = models.CollectionImage(
 			collection_id = collection.id,
-			image_id = article.id,
+			image_id = image.id,
 			order = 0
 		)
 	db.session.add(item)
