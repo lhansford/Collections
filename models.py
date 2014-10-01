@@ -95,7 +95,9 @@ class Collection(db.Model):
 		return [{'article_id': str(i.article_id), 'order': str(i.order)} for i in self.articles]
 
 	def get_num_items(self):
-		return len(self.articles) + len(self.images)
+		a = [x for x in self.articles]
+		i = [x for x in self.images]
+		return len(a) + len(i)
 
 	def get_user(self):
 		return User.query.get(self.user_id).username
