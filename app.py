@@ -223,7 +223,7 @@ def post_image():
 	image = models.Image(
 		image = image,
 		title = title,
-		content = description
+		description = description
 	)
 	db.session.add(image)
 	db.session.commit()
