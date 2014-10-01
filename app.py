@@ -236,7 +236,7 @@ def post_image():
 		return jsonify(query.dictionary()), 201
 	
 	title = post_json.get("title", "")
-	caption = post_json.get("description", "")
+	caption = post_json.get("caption", "")
 
 	image = models.Image(
 		image = image,

@@ -45,7 +45,7 @@ class Image(db.Model):
 			'id': str(self.id),
 			'image': self.image,
 			'title': self.title,
-			'description': self.description,
+			'caption': self.caption,
 		}
 
 class Collection(db.Model):
