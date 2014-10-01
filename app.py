@@ -215,8 +215,13 @@ def post_image():
 	post_json = request.get_json()
 	if not post_json or not 'image' in post_json:
 		abort(400)
-
 	image = post_json['image']
+
+	# Check if the article is already in database
+	query = models.Image.query.filter_by(image=image).first()
+	if query:
+		return jsonify(query.dictionary()), 201
+	
 	title = post_json.get("title", "")
 	caption = post_json.get("description", "")
 

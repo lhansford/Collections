@@ -38,7 +38,7 @@ class Image(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	title = db.Column(db.Text())
 	caption = db.Column(db.Text())
-	image = db.Column(db.LargeBinary())
+	image = db.Column(db.Text())
 
 	def dictionary(self):
 		return {
