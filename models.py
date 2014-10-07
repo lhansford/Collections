@@ -64,6 +64,10 @@ class Collection(db.Model):
 		if self.thumbnail and self.thumbnail != "":
 			return self.thumbnail
 		else:
+			if self.get_num_images > 0:
+				for i in self.images:
+					a = Image.query.get(i.image_id)
+					return a.image
 			for i in self.articles:
 				a = Article.query.get(i.article_id)
 				if a.lead_image:
@@ -95,9 +99,12 @@ class Collection(db.Model):
 		return items
 
 	def get_num_items(self):
-		a = [x for x in self.articles]
-		i = [x for x in self.images]
+		a = [None for _ in self.articles]
+		i = [None for _ in self.images]
 		return len(a) + len(i)
+
+	def get_num_images(self):
+		return len([None for _ in self.images])
 
 	def get_user(self):
 		return User.query.get(self.user_id).username
