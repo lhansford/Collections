@@ -68,6 +68,19 @@ def find_user():
 		db.session.commit()
 	return jsonify({'user_id':user.id}), 201
 
+@app.route('/api/v1.0/user/<int:user_id>', methods=['GET'])
+def user(user_id):
+	"""	URL - /api/v1.0/user/[id]
+		Method - GET
+
+		Receives a user id and returns the details of that user.
+	"""
+
+	user = models.User.query.get(user_id)
+	if not user:
+		abort(404)
+	return jsonify(user.dictionary())
+
 @app.route('/api/v1.0/collections', methods=['GET'])
 def collections():
 	"""	URL - /api/v1.0/collections

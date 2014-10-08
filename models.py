@@ -10,6 +10,13 @@ class User(db.Model):
 	def __repr__(self):
 		return '<User %r>' % (self.username)
 
+	def dictionary(self):
+		return {
+			'id': str(self.id),
+			'username': self.username,
+			'email': self.email,
+		}
+
 class Article(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	url = db.Column(db.Text())
